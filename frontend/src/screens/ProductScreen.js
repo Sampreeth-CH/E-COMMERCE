@@ -1,13 +1,23 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Row,Col,Image,ListGroup,Card,Button } from 'react-bootstrap';
 import Rating from '../components/Rating';
-import products from'../products';
+import axios from 'axios';
 
-const ProductScreen = ({match}) => {
-  const id=useParams().id
-  const product = products.find((p)=>p._id===id)
+const ProductScreen = () => {
+  const pid=useParams()
+
+  const [product,setProduct]=useState([]);
+  useEffect(()=>{
+    const fetchProduct = async()=>{
+        const res = await axios.get(`/api/products/${pid.id}`)
+        setProduct(res.data)
+    }
+
+    fetchProduct();
+  },[pid])
+
   return (
     <>
       <Link className='btn btn-dark my-3' to='/'>
@@ -34,6 +44,7 @@ const ProductScreen = ({match}) => {
           </ListGroup>
         </Col>
         <Col md={3}>
+        <Card>
           <ListGroup variant='flush'>
               <ListGroup.Item>
                 <Row>
@@ -52,13 +63,13 @@ const ProductScreen = ({match}) => {
                   </Col>
                 </Row>
               </ListGroup.Item>
-
               <ListGroup.Item>
                 <Button className='btn-block' type='button' disabled={product.stock===0}>
                   Add to Cart
                 </Button>
               </ListGroup.Item>
           </ListGroup>
+          </Card>
         </Col>
       </Row>
     </>

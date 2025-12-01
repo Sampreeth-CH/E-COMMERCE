@@ -1,0 +1,29 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "MERN E-COMMERCE App",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sampreeth-CH/E-COMMERCE.git"
+  },
+  "author": "Sampreeth C H",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sampreeth-CH/E-COMMERCE/issues"
+  },
+  "homepage": "https://github.com/Sampreeth-CH/E-COMMERCE#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.11"
+  }
+}
