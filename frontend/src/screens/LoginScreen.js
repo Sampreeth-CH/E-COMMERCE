@@ -21,10 +21,10 @@ const LoginScreen = () => {
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
-    if (userInfo) {
-      navigate(redirect)
+    if (userInfo && location.pathname === '/login') {
+      navigate(redirect.startsWith('/') ? redirect : `/${redirect}`)
     }
-  }, [navigate, userInfo, redirect])
+  }, [navigate, userInfo, redirect, location.pathname])
 
   const submitHandler = (e) => {
     e.preventDefault()

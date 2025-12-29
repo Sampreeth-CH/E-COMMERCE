@@ -24,10 +24,10 @@ const RegisterScreen = () => {
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
-    if (userInfo) {
-      navigate(redirect)
+    if (userInfo && location.pathname === '/register') {
+      navigate(redirect.startsWith('/') ? redirect : `/${redirect}`)
     }
-  }, [navigate, userInfo, redirect])
+  }, [navigate, userInfo, redirect, location.pathname])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -41,7 +41,9 @@ const RegisterScreen = () => {
   return (
     <FormContainer>
       <h1>Sign Up</h1>
-      {error && <Message variant='danger'>{message}</Message>}
+      {message && <Message variant='danger'>{message}</Message>}
+      {error && <Message variant='danger'>{error}</Message>}
+
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
         <Form.Group controlId='name'>
