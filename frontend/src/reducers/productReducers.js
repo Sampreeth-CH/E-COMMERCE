@@ -10,7 +10,9 @@ const productListSlice = createSlice({
     },
     success: (state, action) => {
       state.loading = false
-      state.products = action.payload
+      state.products = action.payload.products
+      state.page = action.payload.page
+      state.pages = action.payload.pages
     },
     fail: (state, action) => {
       state.loading = false
