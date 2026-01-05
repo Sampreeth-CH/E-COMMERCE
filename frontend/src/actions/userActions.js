@@ -162,10 +162,18 @@ export const updateUser = (user) => async (dispatch, getState) => {
     const { data } = await axios.put(`/api/users/${user._id}`, user, config)
     dispatch({ type: 'USER_UPDATE_SUCCESS' })
     dispatch({ type: 'USER_DETAILS_SUCCESS', payload: data })
+    dispatch({ type: 'USER_DETAILS_RESET' })
   } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(Logout())
+    }
     dispatch({
       type: 'USER_UPDATE_FAIL',
-      payload: error.response?.data?.message || error.message,
+      payload: message,
     })
   }
 }
