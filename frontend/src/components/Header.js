@@ -1,5 +1,4 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,7 +18,14 @@ const Header = () => {
       <Navbar bg='dark' variant='dark' expand='lg' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>SKY-MART</Navbar.Brand>
+            <Navbar.Brand>
+              <img
+                src='/skymart.png'
+                alt='SkyMart Logo'
+                style={{ width: '35px', height: '35px', marginRight: '10px' }}
+              />
+              <Navbar.Brand>SKY-MART</Navbar.Brand>
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>

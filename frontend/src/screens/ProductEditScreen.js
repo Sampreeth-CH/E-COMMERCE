@@ -65,7 +65,7 @@ const ProductEditScreen = () => {
       }
 
       const { data } = await axios.post('/api/upload', formData, config)
-      setImages(data)
+      setImages(data.image)
       setUploading(false)
     } catch (error) {
       console.error(error)
