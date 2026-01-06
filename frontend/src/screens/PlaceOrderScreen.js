@@ -51,7 +51,7 @@ const PlaceOrderScreen = () => {
     if (success) {
       navigate(`/order/${order._id}`)
     }
-  }, [success, order])
+  }, [success, order, navigate])
 
   // const placeOrderHandler = () => {
   //   dispatch(

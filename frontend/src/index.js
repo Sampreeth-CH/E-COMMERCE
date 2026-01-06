@@ -13,8 +13,7 @@ root.render(
   <Provider store={store}>
     <PayPalScriptProvider
       options={{
-        'client-id':
-          'ARVAZBnpyH8idWNtxTIPQhYwNBuMj0hLDq2kaTUi0tzVeJFEP4JaMm7ESFGTPzH9RRUZjfYgAmNgiO4w',
+        'client-id': process.env.REACT_APP_PAYPAL_CLIENT_ID,
         currency: 'USD',
       }}
     >

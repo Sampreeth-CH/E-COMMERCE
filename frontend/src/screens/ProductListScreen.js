@@ -42,7 +42,7 @@ const ProductListScreen = () => {
 
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET })
-    if (!userInfo.isAdmin) {
+    if (!userInfo.isAdmin || !userInfo) {
       navigate('/login')
     }
 
@@ -86,7 +86,7 @@ const ProductListScreen = () => {
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
       {loadingCreate && <Loader />}
-      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
       {loading ? (
         <Loader />
       ) : error ? (

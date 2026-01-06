@@ -7,10 +7,13 @@ import productRoutes from './routes/productRoutes.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
-import uploadRoutes from './routes/uploadRoutes.js'
 import path from 'path'
 
-dotenv.config()
+dotenv.config({
+  path: path.resolve('./backend/.env'),
+})
+import uploadRoutes from './routes/uploadRoutes.js'
+
 connectDB()
 const app = express()
 
