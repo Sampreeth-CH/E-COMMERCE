@@ -22,7 +22,7 @@ const upload = multer({
 // Upload route
 router.post('/', upload.single('image'), (req, res) => {
   res.json({
-    image: req.file.path, // Cloudinary URL
+    image: req.file.secure_url, // Cloudinary URL
   })
 })
 
