@@ -8,6 +8,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
 import path from 'path'
+import cors from 'cors'
 
 dotenv.config({
   path: path.resolve('./backend/.env'),
@@ -16,6 +17,19 @@ import uploadRoutes from './routes/uploadRoutes.js'
 
 connectDB()
 const app = express()
+
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'https://skymart.vercel.app', // your frontend (change if needed)
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    credentials: true,
+  })
+)
+// Handle preflight requests
+app.options('*', cors())
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
