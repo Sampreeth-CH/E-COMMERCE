@@ -1,5 +1,4 @@
-import axios from 'axios'
-
+import api from '../api/axios'
 import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
@@ -17,7 +16,7 @@ export const Login = (email, password) => async (dispatch) => {
   try {
     dispatch(USER_LOGIN_REQUEST())
 
-    const { data } = await axios.post('/api/users/login', {
+    const { data } = await api.post('/api/users/login', {
       email,
       password,
     })
@@ -33,7 +32,7 @@ export const Register = (name, email, password) => async (dispatch) => {
   try {
     dispatch(USER_REGISTER_REQUEST())
 
-    const { data } = await axios.post('/api/users', {
+    const { data } = await api.post('/api/users', {
       name,
       email,
       password,
@@ -60,7 +59,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    const { data } = await axios.get(`/api/users/${id}`, config)
+    const { data } = await api.get(`/api/users/${id}`, config)
     dispatch({ type: 'USER_DETAILS_SUCCESS', payload: data })
   } catch (error) {
     dispatch({
@@ -91,7 +90,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    const { data } = await axios.put('/api/users/profile', user, config)
+    const { data } = await api.put('/api/users/profile', user, config)
     dispatch({ type: 'USER_UPDATE_PROFILE_SUCCESS', payload: data })
   } catch (error) {
     dispatch({
@@ -113,7 +112,7 @@ export const listUsers = () => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    const { data } = await axios.get('/api/users', config)
+    const { data } = await api.get('/api/users', config)
     dispatch({ type: 'USER_LIST_SUCCESS', payload: data })
   } catch (error) {
     dispatch({
@@ -135,7 +134,7 @@ export const deleteUsers = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     }
-    await axios.delete(`/api/users/${id}`, config)
+    await api.delete(`/api/users/${id}`, config)
     dispatch({ type: 'USER_DELETE_SUCCESS' })
   } catch (error) {
     dispatch({
@@ -159,7 +158,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(`/api/users/${user._id}`, user, config)
+    const { data } = await api.put(`/api/users/${user._id}`, user, config)
     dispatch({ type: 'USER_UPDATE_SUCCESS' })
     dispatch({ type: 'USER_DETAILS_SUCCESS', payload: data })
     dispatch({ type: 'USER_DETAILS_RESET' })
