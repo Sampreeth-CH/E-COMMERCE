@@ -20,16 +20,14 @@ const app = express()
 
 app.use(
   cors({
-    origin: [
-      'http://localhost:3000',
-      'https://skymart.vercel.app', // your frontend (change if needed)
-    ],
+    origin: 'http://localhost:3000',
+
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     credentials: true,
   })
 )
 // Handle preflight requests
-app.options('*', cors())
+app.options('/*', cors())
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'))
