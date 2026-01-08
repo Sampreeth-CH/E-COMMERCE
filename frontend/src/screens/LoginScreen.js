@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { Login } from '../actions/userActions'
 import FormContainer from '../components/FormContainer'
+import { toast } from 'react-toastify'
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('')
@@ -21,10 +22,14 @@ const LoginScreen = () => {
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
+    if (error) {
+      toast.error(error)
+    }
     if (userInfo && location.pathname === '/login') {
+      toast.success('Logged in Successfully')
       navigate(redirect.startsWith('/') ? redirect : `/${redirect}`)
     }
-  }, [navigate, userInfo, redirect, location.pathname])
+  }, [navigate, userInfo, redirect, location.pathname, error])
 
   const submitHandler = (e) => {
     e.preventDefault()

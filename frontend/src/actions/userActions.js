@@ -10,6 +10,7 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_REGISTER_RESET,
 } from '../reducers/userRegisterReducers'
 
 export const Login = (email, password) => async (dispatch) => {
@@ -75,6 +76,7 @@ export const Logout = () => (dispatch) => {
   dispatch({ type: 'USER_DETAILS_RESET' })
   dispatch({ type: 'ORDER_LIST_MY_RESET' })
   dispatch({ type: 'USER_LIST_RESET' })
+  dispatch(USER_REGISTER_RESET())
 }
 
 export const updateUserProfile = (user) => async (dispatch, getState) => {

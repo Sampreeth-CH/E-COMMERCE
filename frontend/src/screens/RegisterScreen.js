@@ -7,12 +7,14 @@ import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
 import { Register } from '../actions/userActions.js'
+import { toast } from 'react-toastify'
 
 const RegisterScreen = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [toastShown, setToastShown] = useState(false)
   const [message, setMessage] = useState(null)
   const location = useLocation()
   const dispatch = useDispatch()
@@ -24,16 +26,24 @@ const RegisterScreen = () => {
   const redirect = location.search ? location.search.split('=')[1] : '/'
 
   useEffect(() => {
+    if (error && !toastShown) {
+      toast.error(error)
+      setToastShown(true)
+    }
+
     if (userInfo && location.pathname === '/register') {
+      toast.success('Registered Successfully')
       navigate(redirect.startsWith('/') ? redirect : `/${redirect}`)
     }
-  }, [navigate, userInfo, redirect, location.pathname])
+  }, [navigate, userInfo, redirect, location.pathname, error, toastShown])
 
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
       setMessage('Passwords do not match')
+      toast.error('Passwords do not match')
     } else {
+      setToastShown(false)
       dispatch(Register(name, email, password, confirmPassword))
     }
   }

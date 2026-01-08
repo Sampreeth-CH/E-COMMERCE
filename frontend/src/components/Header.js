@@ -4,6 +4,7 @@ import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Logout } from '../actions/userActions.js'
 import SearchBox from './SearchBox.js'
+import { toast } from 'react-toastify'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -11,6 +12,7 @@ const Header = () => {
   const { userInfo } = userLogin
   const logoutHandler = () => {
     dispatch(Logout())
+    toast.success('Logged out successfully')
   }
 
   return (
@@ -24,13 +26,23 @@ const Header = () => {
                 alt='SkyMart Logo'
                 style={{ width: '35px', height: '35px', marginRight: '10px' }}
               />
-              <Navbar.Brand>SKY-MART</Navbar.Brand>
+              <span className='fw-bold'>SKY-MART</span>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <SearchBox />
             <Nav className='ms-auto'>
+              <LinkContainer to='/'>
+                <Nav.Link href='/'>
+                  <i className='fas fa-home'></i>Home
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to='/orderlist'>
+                <Nav.Link href='/orderlist'>
+                  <i className='fas fa-box'></i>Orders
+                </Nav.Link>
+              </LinkContainer>
               <LinkContainer to='/cart'>
                 <Nav.Link href='/Cart'>
                   <i className='fas fa-shopping-cart'></i>Cart
