@@ -4,6 +4,13 @@ A **full-stack E-Commerce web application** built using the **MERN stack**, feat
 
 ---
 
+## 🚀 Live Demo
+
+🌐 [Click here to view the live site](https://skymart-shop.vercel.app/)  
+📂 [Download this project as ZIP](https://github.com/Sampreeth-CH/E-COMMERCE/archive/refs/heads/main.zip)
+
+---
+
 ## 🚀 Key Features
 
 ### 👤 User Features
@@ -210,14 +217,16 @@ Password: 123456
 
 ---
 
-## 👨‍💻 Author
+## 👤 Author
 
-```text
-Sampreeth C H
-```
-```text
-sampreethchsampreethch@gmail.com
-```
+**Sampreeth CH**
+
+- 🔗 LinkedIn: [Sampreeth CH](https://www.linkedin.com/in/sampreethch)
+- 🐙 GitHub: [@Sampreeth-CH](https://github.com/Sampreeth-CH)
+- 📧 Email: sampreethchsampreethch@gmail.com
+- 🌐 Portfolio: *(Coming soon)*
+
+Feel free to connect or reach out for collaboration, feedback, or just to say hi!
 
 ---
 
