@@ -12,6 +12,7 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_RESET,
 } from '../reducers/userRegisterReducers'
+import { toast } from 'react-toastify'
 
 export const Login = (email, password) => async (dispatch) => {
   try {
@@ -23,6 +24,7 @@ export const Login = (email, password) => async (dispatch) => {
     })
 
     dispatch(USER_LOGIN_SUCCESS(data))
+    toast.success('Logged in Successfully')
     localStorage.setItem('userInfo', JSON.stringify(data))
   } catch (error) {
     dispatch(USER_LOGIN_FAIL(error.response?.data?.message || error.message))

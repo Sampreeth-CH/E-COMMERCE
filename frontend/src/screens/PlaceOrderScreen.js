@@ -5,6 +5,8 @@ import Message from '../components/Message'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { Link, useNavigate } from 'react-router-dom'
 import { createOrder } from '../actions/orderActions'
+import { ORDER_CREATE_RESET } from '../constants/orderConstants'
+import Loader from '../components/Loader'
 
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart)
@@ -37,7 +39,7 @@ const PlaceOrderScreen = () => {
   const totalPrice = Number((itemsPrice + shippingPrice + taxPrice).toFixed(2))
 
   const orderCreate = useSelector((state) => state.orderCreate)
-  const { order, success, error } = orderCreate
+  const { order, loading, success, error } = orderCreate
 
   useEffect(() => {
     if (!cart.shippingAddress.address) {
@@ -50,8 +52,9 @@ const PlaceOrderScreen = () => {
   useEffect(() => {
     if (success) {
       navigate(`/order/${order._id}`)
+      dispatch({ type: ORDER_CREATE_RESET })
     }
-  }, [success, order, navigate])
+  }, [success, order, navigate, dispatch])
 
   // const placeOrderHandler = () => {
   //   dispatch(
@@ -168,6 +171,7 @@ const PlaceOrderScreen = () => {
                 {error && <Message variant='danger'>{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
+                {loading && <Loader />}
                 <Button
                   type='button'
                   className='btn-block'

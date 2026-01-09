@@ -26,7 +26,6 @@ const LoginScreen = () => {
       toast.error(error)
     }
     if (userInfo && location.pathname === '/login') {
-      toast.success('Logged in Successfully')
       navigate(redirect.startsWith('/') ? redirect : `/${redirect}`)
     }
   }, [navigate, userInfo, redirect, location.pathname, error])
