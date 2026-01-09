@@ -51,13 +51,23 @@ const OrderScreen = () => {
   }, [dispatch, orderId, successPay, successDeliver, order, navigate, userInfo])
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult))
   }
 
-  const deliverHandler = () => {
-    console.log(order)
+  const paymentHandler = () => {
+    dispatch(
+      payOrder(orderId, {
+        id: 'COD',
+        status: 'COMPLETED',
+        update_time: new Date().toISOString(),
+        payer: {
+          email_address: order.user.email,
+        },
+      })
+    )
+  }
 
+  const deliverHandler = () => {
     dispatch(deliverOrder(order))
   }
 
@@ -169,7 +179,7 @@ const OrderScreen = () => {
                   <Col>₹{order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {!order.isPaid && (
+              {!order.isPaid && order.paymentMethod !== 'Cash on Delivery' && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
 
@@ -193,6 +203,21 @@ const OrderScreen = () => {
                   />
                 </ListGroup.Item>
               )}
+              {loadingPay && <Loader />}
+              {userInfo &&
+                userInfo.isAdmin &&
+                !order.isPaid &&
+                order.paymentMethod === 'Cash on Delivery' && (
+                  <ListGroup.Item>
+                    <Button
+                      type='button'
+                      className='btn btn-block'
+                      onClick={paymentHandler}
+                    >
+                      Mark As Paid
+                    </Button>
+                  </ListGroup.Item>
+                )}
               {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&

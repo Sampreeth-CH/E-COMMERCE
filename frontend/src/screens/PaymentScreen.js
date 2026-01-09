@@ -43,11 +43,11 @@ const PaymentScreen = () => {
             ></Form.Check>
             <Form.Check
               type='radio'
-              label='Stripe'
-              id='Stripe'
+              label='Cash on Delivery'
+              id='Cash on Delivery'
               name='paymentMethod'
-              value='Stripe'
-              checked={paymentMethod === 'Stripe'}
+              value='Cash on Delivery'
+              checked={paymentMethod === 'Cash on Delivery'}
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></Form.Check>
           </Col>
