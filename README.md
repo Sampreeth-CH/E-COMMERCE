@@ -217,6 +217,13 @@ Password: 123456
 
 ---
 
+## 📄 License
+
+© 2026 Sampreeth C H. All Rights Reserved.  
+You may not copy, modify, or distribute this code without permission.
+
+---
+
 ## 👤 Author
 
 **Sampreeth CH**
