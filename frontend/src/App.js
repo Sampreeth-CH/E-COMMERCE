@@ -19,6 +19,7 @@ import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import OrderListScreen from './screens/OrderListScreen'
 import UserOrderScreen from './screens/UserOrderScreen'
+import CategoryScreen from './screens/CategoryScreen'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -65,6 +66,10 @@ const App = () => {
               element={<HomeScreen />}
             />
             <Route path='/' element={<HomeScreen />} />
+            <Route
+              path='/category/:categoryName'
+              element={<CategoryScreen />}
+            />
           </Routes>
         </Container>
       </main>
