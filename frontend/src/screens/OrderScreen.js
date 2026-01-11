@@ -14,11 +14,15 @@ import {
   ORDER_PAY_RESET,
   ORDER_DELIVER_RESET,
 } from '../constants/orderConstants'
+import axios from 'axios'
+import { useState } from 'react'
 
 const OrderScreen = () => {
   const orderId = useParams().id
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const [usdAmount, setUsdAmount] = useState(null)
 
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails
@@ -50,6 +54,23 @@ const OrderScreen = () => {
     }
   }, [dispatch, orderId, successPay, successDeliver, order, navigate, userInfo])
 
+  useEffect(() => {
+    const fetchUsdAmount = async () => {
+      if (order && !order.isPaid) {
+        const { data } = await axios.get(
+          'https://api.exchangerate-api.com/v4/latest/USD'
+        )
+
+        const inrRate = data.rates.INR
+        const convertedUsd = (order.totalPrice / inrRate).toFixed(2)
+
+        setUsdAmount(convertedUsd)
+      }
+    }
+
+    fetchUsdAmount()
+  }, [order])
+
   const successPaymentHandler = (paymentResult) => {
     dispatch(payOrder(orderId, paymentResult))
   }
@@ -61,7 +82,7 @@ const OrderScreen = () => {
         status: 'COMPLETED',
         update_time: new Date().toISOString(),
         payer: {
-          email_address: order.user.email,
+          email_address: order?.user?.email,
         },
       })
     )
@@ -84,16 +105,19 @@ const OrderScreen = () => {
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
-                <strong>Name: </strong> {order.user.name}
+                <strong>Name: </strong> {order?.user?.name}
               </p>
               <p>
                 <strong>Email: </strong>{' '}
-                <a href={`mailto:${order.user.email}`}>{order.user.email}</a>
+                <a href={`mailto:${order?.user?.email}`}>
+                  {order?.user?.email}
+                </a>
               </p>
               <p>
                 <strong>Address: </strong>
-                {order.shippingAddress.address}, {order.shippingAddress.city}{' '}
-                {order.shippingAddress.pinCode}, {order.shippingAddress.country}
+                {order?.shippingAddress?.address},{' '}
+                {order?.shippingAddress?.city} {order?.shippingAddress?.pinCode}
+                , {order?.shippingAddress?.country}
               </p>
               {order.isDelivered ? (
                 <Message variant='success'>
@@ -181,6 +205,16 @@ const OrderScreen = () => {
               </ListGroup.Item>
               {!order.isPaid && order.paymentMethod !== 'Cash on Delivery' && (
                 <ListGroup.Item>
+                  <p
+                    style={{
+                      fontSize: '13px',
+                      color: 'gray',
+                      textAlign: 'center',
+                    }}
+                  >
+                    PayPal payments are processed in USD (${usdAmount})
+                  </p>
+
                   {loadingPay && <Loader />}
 
                   <PayPalButtons
@@ -189,7 +223,7 @@ const OrderScreen = () => {
                         purchase_units: [
                           {
                             amount: {
-                              value: order.totalPrice,
+                              value: usdAmount,
                             },
                           },
                         ],

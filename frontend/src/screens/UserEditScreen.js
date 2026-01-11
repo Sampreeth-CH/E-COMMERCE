@@ -17,6 +17,9 @@ const UserEditScreen = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const userDetails = useSelector((state) => state.userDetails)
   const { loading, error, user } = userDetails
 
@@ -87,8 +90,14 @@ const UserEditScreen = () => {
                 type='checkbox'
                 label='Is Admin'
                 checked={isAdmin}
+                disabled={userInfo._id === userId}
                 onChange={(e) => setIsAdmin(e.target.checked)}
               ></Form.Check>
+              {userInfo._id === userId && (
+                <small style={{ color: 'gray' }}>
+                  You cannot remove admin privileges from your own account.
+                </small>
+              )}
             </Form.Group>
 
             <Button type='submit' variant='primary' className='mt-3'>
