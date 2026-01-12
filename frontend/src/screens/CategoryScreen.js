@@ -18,22 +18,22 @@ const CategoryScreen = () => {
       try {
         setLoading(true)
 
-        // 1️⃣ First page
         const { data } = await axios.get('/api/products?pageNumber=1')
 
-        let allProducts = data.products
-        const totalPages = data.pages
+        let allProducts = Array.isArray(data.products) ? data.products : []
+        const totalPages = data.pages || 1
 
-        // 2️⃣ Remaining pages
         for (let i = 2; i <= totalPages; i++) {
           const res = await axios.get(`/api/products?pageNumber=${i}`)
-          allProducts = [...allProducts, ...res.data.products]
+          const pageProducts = Array.isArray(res.data.products)
+            ? res.data.products
+            : []
+          allProducts = [...allProducts, ...pageProducts]
         }
 
-        // 3️⃣ Frontend category filter
         const filtered = allProducts.filter(
           (p) =>
-            p.category &&
+            p?.category &&
             p.category.toLowerCase().trim() ===
               categoryName.toLowerCase().trim()
         )
