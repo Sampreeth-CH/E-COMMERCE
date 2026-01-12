@@ -7,12 +7,12 @@ import {
 } from '../reducers/productDetailsReducers'
 
 export const listProducts =
-  (keyword = '', category = '', pageNumber = '') =>
+  (keyword = '', pageNumber = '') =>
   async (dispatch) => {
     try {
       dispatch(request())
       const { data } = await api.get(
-        `/api/products?keyword=${keyword}&category=${category}&pageNumber=${pageNumber}`
+        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
       )
       dispatch(success(data))
     } catch (error) {

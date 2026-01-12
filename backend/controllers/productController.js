@@ -13,21 +13,11 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {}
 
-  const categoryFilter = req.query.category
-    ? { category: req.query.category }
-    : {}
+  const count = await Product.countDocuments({ ...keyword })
 
-  const finalFilter = {
-    ...keyword,
-    ...categoryFilter,
-  }
-
-  const count = await Product.countDocuments(finalFilter)
-
-  const products = await Product.find(finalFilter)
+  const products = await Product.find(keyword)
     .limit(pageSize)
     .skip(pageSize * (page - 1))
-
   res.json({ products, page, pages: Math.ceil(count / pageSize) })
 })
 
