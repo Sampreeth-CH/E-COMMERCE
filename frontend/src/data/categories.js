@@ -16,6 +16,10 @@ const categories = [
     image: '/images/fashion.jpg',
   },
   {
+    name: 'furnitures',
+    image: '/images/furnitures.avif',
+  },
+  {
     name: 'toys',
     image: '/images/toys.webp',
   },
