@@ -15,12 +15,8 @@ const CategoryScreen = () => {
   const { loading, error, products } = productList
 
   useEffect(() => {
-    dispatch(listProducts())
-  }, [dispatch])
-
-  const filteredProducts = products.filter(
-    (product) => product.category?.toLowerCase() === categoryName.toLowerCase()
-  )
+    dispatch(listProducts({ category: categoryName }))
+  }, [dispatch, categoryName])
 
   return (
     <>
@@ -32,10 +28,10 @@ const CategoryScreen = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <Row>
-          {filteredProducts.length === 0 ? (
+          {products.length === 0 ? (
             <Message>No products found</Message>
           ) : (
-            filteredProducts.map((product) => (
+            products.map((product) => (
               <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                 <Product product={product} />
               </Col>
