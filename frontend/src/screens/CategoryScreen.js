@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
 import Product from '../components/Product'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import api from '../api/axios'
 
 const CategoryScreen = () => {
   const { categoryName } = useParams()
@@ -18,13 +18,13 @@ const CategoryScreen = () => {
       try {
         setLoading(true)
 
-        const { data } = await axios.get('/api/products?pageNumber=1')
+        const { data } = await api.get('/api/products?pageNumber=1')
 
         let allProducts = Array.isArray(data.products) ? data.products : []
         const totalPages = data.pages || 1
 
         for (let i = 2; i <= totalPages; i++) {
-          const res = await axios.get(`/api/products?pageNumber=${i}`)
+          const res = await api.get(`/api/products?pageNumber=${i}`)
           const pageProducts = Array.isArray(res.data.products)
             ? res.data.products
             : []
