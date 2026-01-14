@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions.js'
 import Loader from '../components/Loader.js'
 import Message from '../components/Message.js'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import Paginate from '../components/Paginate.js'
 import ProductCarousel from '../components/ProductCarousel.js'
 import categories from '../data/categories.js'
@@ -52,10 +52,14 @@ const HomeScreen = () => {
       ) : (
         <>
           {products.length === 0 ? (
-            <Message variant='info'>
-              No products found
-              {keyword && ` for "${keyword}"`}
-            </Message>
+            <>
+              <Message variant='info'>
+                🔍 No products found for "{keyword}"
+              </Message>
+              <Link className='btn btn-dark my-3' to='/'>
+                Go Back
+              </Link>
+            </>
           ) : (
             <Row>
               {products.map((product) => (
