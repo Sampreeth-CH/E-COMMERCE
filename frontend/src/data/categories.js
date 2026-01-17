@@ -23,6 +23,30 @@ const categories = [
     name: 'toys',
     image: '/images/toys.webp',
   },
+  {
+    name: 'books',
+    image: '/images/books.jpg',
+  },
+  {
+    name: 'sports',
+    image: '/images/sports.webp',
+  },
+  {
+    name: 'beauty',
+    image: '/images/beauty.png',
+  },
+  {
+    name: 'accessories',
+    image: '/images/accessories.webp',
+  },
+  {
+    name: 'groceries',
+    image: '/images/groceries.png',
+  },
+  {
+    name: 'health',
+    image: '/images/health.jpg',
+  },
 ]
 
 export default categories
