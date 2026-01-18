@@ -29,10 +29,10 @@ const PlaceOrderScreen = () => {
   const itemsPrice = Number(
     cart.cartItems
       .reduce((acc, item) => acc + item.price * item.qty, 0)
-      .toFixed(2)
+      .toFixed(2),
   )
 
-  const shippingPrice = itemsPrice > 100 ? 0 : 10
+  const shippingPrice = itemsPrice > 100 ? 0 : 100
 
   const taxPrice = Number((0.15 * itemsPrice).toFixed(2))
 
@@ -80,7 +80,7 @@ const PlaceOrderScreen = () => {
         shippingPrice,
         taxPrice,
         totalPrice,
-      })
+      }),
     )
   }
 
